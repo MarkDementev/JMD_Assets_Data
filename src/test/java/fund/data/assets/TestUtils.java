@@ -85,7 +85,7 @@ public class TestUtils {
     public static final LocalDate TEST_FIXED_RATE_BOND_LAST_ASSET_BUY_DATE_NOT_MATURED = LocalDate.of(
             2024, 1, 1);
     public static final LocalDate TEST_FIXED_RATE_BOND_MATURITY_DATE_NOT_MATURED = LocalDate.of(
-            2025, 1, 1);
+            2125, 1, 1);
     private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
     @Autowired
     private JWTHelper jwtHelper;

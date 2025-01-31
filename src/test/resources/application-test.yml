@@ -3,19 +3,15 @@ base-url: /data
 spring:
   application:
     name: fundAssetsData
-
   jpa:
     hibernate:
       ddl-auto: create
-
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:postgresql:16:///test
-
   output:
     ansi:
       enabled: ALWAYS
-
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master-test.xml
 

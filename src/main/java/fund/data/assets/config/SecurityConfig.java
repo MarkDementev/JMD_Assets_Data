@@ -39,8 +39,8 @@ public class SecurityConfig {
     public static final String ADMIN_NAME = "admin";
     public static final String ADMIN_PASSWORD = "password";
     public static final String LOGIN_PATH = "/login";
-    public static final String ADMIN_ROLE = "ROLE_ADMIN";
-    public static final String USER_ROLE = "ROLE_USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
     private final String baseUrl;
     private final RequestMatcher loginRequest;
     private final JWTHelper jwtHelper;
@@ -58,11 +58,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(authenticationProvider())
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(loginRequest).permitAll()
-                        .requestMatchers(baseUrl + "/**").hasAuthority(ADMIN_ROLE)
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilter(
@@ -93,7 +92,7 @@ public class SecurityConfig {
         UserDetails admin = User.builder()
                 .username(ADMIN_NAME)
                 .password(passwordEncoder().encode(ADMIN_PASSWORD))
-                .authorities(ADMIN_ROLE)
+                .authorities(ROLE_ADMIN)
                 .build();
 
         return new InMemoryUserDetailsManager(admin);

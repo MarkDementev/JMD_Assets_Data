@@ -17,8 +17,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import static fund.data.assets.config.SecurityConfig.ADMIN_NAME;
-import static fund.data.assets.config.SecurityConfig.ADMIN_ROLE;
-import static fund.data.assets.config.SecurityConfig.USER_ROLE;
+import static fund.data.assets.config.SecurityConfig.ROLE_ADMIN;
+import static fund.data.assets.config.SecurityConfig.ROLE_USER;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
@@ -60,7 +60,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private UsernamePasswordAuthenticationToken buildAuthToken(final String username) {
-        String role = username.equals(ADMIN_NAME) ? ADMIN_ROLE : USER_ROLE;
+        String role = username.equals(ADMIN_NAME) ? ROLE_ADMIN : ROLE_USER;
 
         return new UsernamePasswordAuthenticationToken(
                 username,

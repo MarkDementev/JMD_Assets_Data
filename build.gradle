@@ -1,9 +1,9 @@
 plugins {
 	id 'application'
 	id 'java'
-	id 'org.springframework.boot' version '3.2.4'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id 'org.springdoc.openapi-gradle-plugin' version '1.8.0'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springdoc.openapi-gradle-plugin' version '1.9.0'
 	id 'jacoco'
 }
 
@@ -15,7 +15,9 @@ application {
 }
 
 java {
-	sourceCompatibility = '17'
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
 }
 
 configurations {
@@ -33,30 +35,27 @@ dependencies {
 			'org.springframework.boot:spring-boot-starter-data-jpa',
 			'org.springframework.boot:spring-boot-starter-web',
 			'org.springframework.boot:spring-boot-starter-validation',
-			'org.springframework.boot:spring-boot-starter-aop:3.3.5',
-			'org.springframework.boot:spring-boot-starter-security:3.3.5',
-			'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0',
-			'org.jasypt:jasypt:1.9.3',
-			'org.postgresql:postgresql:42.7.4',
-			'io.jsonwebtoken:jjwt:0.9.1',
+			'org.springframework.boot:spring-boot-starter-security',
 			'org.liquibase:liquibase-core:4.29.1',
-			'org.openapitools:jackson-databind-nullable:0.2.6'
+			'io.jsonwebtoken:jjwt:0.9.1',
+			'org.postgresql:postgresql:42.7.4',
+			'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0',
+			'io.swagger.core.v3:swagger-annotations:2.2.26',
+			'org.openapitools:jackson-databind-nullable:0.2.6',
+			'org.jasypt:jasypt:1.9.3',
+			'org.springframework.boot:spring-boot-starter-aop:3.3.5'
 	)
-
 	testImplementation (
 			'org.springframework.boot:spring-boot-starter-test',
 			'org.testcontainers:testcontainers:1.20.1',
 			'org.testcontainers:postgresql:1.20.1',
 			'org.testcontainers:junit-jupiter:1.20.1'
 	)
-
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 	compileOnly 'org.projectlombok:lombok'
-
 	annotationProcessor 'org.projectlombok:lombok'
-
 	runtimeOnly 'com.h2database:h2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
